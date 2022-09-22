@@ -1,8 +1,12 @@
 package pi.javastart.library.app;
 
+import pi.javastart.library.exception.DataExportException;
+import pi.javastart.library.exception.DataImportException;
 import pi.javastart.library.exception.NoSuchOptionException;
 import pi.javastart.library.io.ConsolePrinter;
 import pi.javastart.library.io.DataReader;
+import pi.javastart.library.io.file.FileManager;
+import pi.javastart.library.io.file.FileManagerBuilder;
 import pi.javastart.library.model.Book;
 import pi.javastart.library.model.Library;
 import pi.javastart.library.model.Magazine;
@@ -14,8 +18,21 @@ public class LibraryControl {
 
     private ConsolePrinter printer = new ConsolePrinter();
     private DataReader dataReader = new DataReader(printer);
+    private FileManager fileManager;
 
-    private Library library = new Library();
+    private Library library;
+
+    LibraryControl() {
+        fileManager = new FileManagerBuilder(printer, dataReader).build();
+        try {
+            library = fileManager.importData();
+            printer.printLine("Zaimportowane dane z pliku");
+        } catch (DataImportException e) {
+            printer.printLine(e.getMessage());
+            printer.printLine("Zainicjowano nową bazę.");
+            library = new Library();
+        }
+    }
 
     void controlLoop() {
         Option option;
@@ -102,10 +119,16 @@ public class LibraryControl {
     }
 
     private void exit() {
-        printer.printLine("Koniec programu, papa!");
-
+        try {
+            fileManager.exportData(library);
+            printer.printLine("Export danych do pliku zakończony powodzeniem");
+        } catch (DataExportException e) {
+            printer.printLine(e.getMessage());
+        }
         dataReader.close();
+        printer.printLine("Koniec programu, papa!");
     }
+
     private enum Option {
         EXIT(0, "Wyjście z programu"),
         ADD_BOOK(1, "Dodanie książki"),
@@ -115,14 +138,6 @@ public class LibraryControl {
 
         private int value;
         private String description;
-
-        public int getValue() {
-            return value;
-        }
-
-        public String getDescription() {
-            return description;
-        }
 
         Option(int value, String desc) {
             this.value = value;
@@ -143,8 +158,6 @@ public class LibraryControl {
         }
     }
 }
-
-
 
 
 
