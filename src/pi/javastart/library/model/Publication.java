@@ -1,12 +1,15 @@
 package pi.javastart.library.model;
 
+import java.io.Serializable;
 import java.util.Objects;
 
-public abstract class Publication {
+public abstract class Publication implements Serializable {
 
     private int year;
     private String title;
     private String publisher;
+
+    public abstract String toCsv();
 
     public Publication(String title, String publisher, int year) {
         this.title = title;

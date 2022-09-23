@@ -4,7 +4,19 @@ import java.util.Objects;
 
 public class Book extends Publication {
 
-    // Fields
+    public static final String TYPE = "Książka";
+
+    @Override
+    public String toCsv() {
+        return (TYPE + ";") +
+                getTitle() + ";" +
+                getPublisher() + ";" +
+                getYear() + ";" +
+                author + ";" +
+                pages + ";" +
+                isbn + "";
+    }
+
 
     private String author;
 

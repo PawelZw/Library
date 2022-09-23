@@ -3,6 +3,20 @@ package pi.javastart.library.model;
 import java.util.Objects;
 
 public class Magazine extends Publication {
+
+    public static final String TYPE = "Magazyn";
+
+    @Override
+    public String toCsv() {
+        return (TYPE + ";") +
+                getTitle() + ";" +
+                getPublisher() + ";" +
+                getYear() + ";" +
+                month + ";" +
+                day + ";" +
+                language + "";
+    }
+
     private int month;
     private int day;
     private String language;
