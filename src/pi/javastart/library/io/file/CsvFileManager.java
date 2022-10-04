@@ -11,7 +11,7 @@ import pi.javastart.library.model.Publication;
 import java.io.*;
 import java.util.Scanner;
 
-public class CSVFileManager implements FileManager {
+public class CsvFileManager implements FileManager {
     private static final String FILE_NAME = "Library.csv";
 
     @Override

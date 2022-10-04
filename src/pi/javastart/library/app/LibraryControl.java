@@ -12,7 +12,9 @@ import pi.javastart.library.model.Book;
 import pi.javastart.library.model.Library;
 import pi.javastart.library.model.Magazine;
 import pi.javastart.library.model.Publication;
+import pi.javastart.library.model.comparator.AlphabeticalTitleComparator;
 
+import java.util.Arrays;
 import java.util.InputMismatchException;
 
 public class LibraryControl {
@@ -103,12 +105,6 @@ public class LibraryControl {
             printer.printLine("Osiągnięto limit pojemności, nie można dodać kolejnej książki");
         }
     }
-
-    private void printBooks() {
-        Publication[] publications = library.getPublications();
-        printer.printBooks(publications);
-    }
-
     private void addMagazine() {
         try {
             Magazine magazine = dataReader.readAndCreateMagazine();
@@ -120,9 +116,20 @@ public class LibraryControl {
         }
     }
 
+    private void printBooks() {
+        Publication[] publications = getSortedPublications();
+        printer.printBooks(publications);
+    }
+
     private void printMagazines() {
-        Publication[] publications = library.getPublications();
+        Publication[] publications = getSortedPublications();
         printer.printMagazines(publications);
+    }
+
+    private Publication[] getSortedPublications() {
+        Publication[] publications = library.getPublications();
+        Arrays.sort(publications, new AlphabeticalTitleComparator());
+        return publications;
     }
 
     private void deleteMagazine() {
@@ -157,7 +164,7 @@ public class LibraryControl {
             printer.printLine(e.getMessage());
         }
         dataReader.close();
-        printer.printLine("Koniec programu, papa!");
+        printer.printLine("Koniec programu!");
     }
 
     private enum Option {
