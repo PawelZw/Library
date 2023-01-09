@@ -14,7 +14,7 @@ public class ConsolePrinter {
             }
         }
         if (counter == 0)
-            printLine("Brak książek w bibliotece");
+            printLine("No books in the library");
     }
 
     public void printMagazines(Publication[] publications) {
@@ -26,7 +26,7 @@ public class ConsolePrinter {
             }
         }
         if (counter == 0)
-            printLine("Brak magazynów w bibliotece");
+            printLine("No magazines in the library");
     }
 
     public void printLine(String text) {

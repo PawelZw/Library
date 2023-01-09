@@ -4,7 +4,7 @@ import java.util.Objects;
 
 public class Book extends Publication {
 
-    public static final String TYPE = "Książka";
+    public static final String TYPE = "Book";
 
     @Override
     public String toCsv() {

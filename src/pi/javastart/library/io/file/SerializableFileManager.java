@@ -16,9 +16,9 @@ public class SerializableFileManager implements FileManager {
         ){
             oos.writeObject(library);
         } catch (FileNotFoundException e) {
-            throw new DataExportException("Brak pliku " + FILE_NAME);
+            throw new DataExportException("No file " + FILE_NAME);
         } catch (IOException e) {
-            throw new DataExportException("Błąd zapisu danych do pliku " + FILE_NAME);
+            throw new DataExportException("File data writing error " + FILE_NAME);
         }
     }
 
@@ -29,11 +29,11 @@ public class SerializableFileManager implements FileManager {
         ) {
             return (Library) ois.readObject();
         } catch (FileNotFoundException e) {
-            throw new DataImportException("Brak pliku " + FILE_NAME);
+            throw new DataImportException("No file " + FILE_NAME);
         } catch (IOException e) {
-            throw new DataImportException("Błąd odczytu pliku " + FILE_NAME);
+            throw new DataImportException("File read error " + FILE_NAME);
         } catch (ClassNotFoundException e) {
-            throw new DataImportException("Niezgodny typ danych w pliku " + FILE_NAME);
+            throw new DataImportException("Incompatible data type in the file " + FILE_NAME);
         }
     }
 }
