@@ -43,7 +43,7 @@ public abstract class Publication implements Serializable, Comparable<Publicatio
 
     @Override
     public String toString() {
-        return title + ";" + publisher + ";" + year;
+        return title + "; " + publisher + "; " + year + "; ";
     }
 
     @Override
